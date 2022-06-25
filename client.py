@@ -6,7 +6,7 @@ import pickle
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('127.0.0.1', 3333))
 
-canSend=False 
+canSend=True 
 
 def receive():
     while True:
@@ -29,10 +29,15 @@ def receive():
 
 def write():
     while True:
-        message = '{}'.format(input(''))
-        toSend = encode(message)
-        print("Your message as been encoded as " + toSend + " and sent")
-        client.send(toSend.encode('ascii'))
+        if (canSend):
+            message = '{}'.format(input(''))
+            toSend = encode(message)
+            print("Your message as been encoded as " + toSend + " and sent")
+            client.send(toSend.encode('ascii'))
+        else : 
+            print("The server cannot decode your message. but feel free to type :)")
+            message = '{}'.format(input(''))
+            toSend = encode(message)
 
 def encode(s):
     # find the length of the string 
