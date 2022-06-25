@@ -1,1 +1,1 @@
-Il y a un bug dans l'encodeur
+Utiliser les fonctions de decodage et encodage dans les programmes clients et server
