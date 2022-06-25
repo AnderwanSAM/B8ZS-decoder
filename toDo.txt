@@ -1,1 +1,1 @@
-Utiliser les fonctions de decodage et encodage dans les programmes clients et server
+validation par Hedi 
