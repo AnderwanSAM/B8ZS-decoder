@@ -2,11 +2,11 @@
 ## _Groupe 3 : Andie Samadoulougou ; Hedi Ben Abid_
 
 ## Tables des matieres 
-I - Contexte/Sujet
-II - Deroulement du programme 
-II - Fonctionnement de l'encodage et du decodage
-III - Communication entre programmes et principe d'encodage 
-IV - Utilisation 
+- I - Contexte/Sujet
+- II - Deroulement du programme 
+- II - Fonctionnement de l'encodage et du decodage
+- III - Communication entre programmes et principe d'encodage 
+- IV - Utilisation 
 
 ## Contexte/Sujet : 
 1.L'entrée du programme de codage (client) est une chaîne de 0 et 1, entrée à partir du clavier.
