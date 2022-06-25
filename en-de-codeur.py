@@ -9,8 +9,9 @@ exp3='+000+-0-+000-00'
 exp4='+-000-+0+-+-00000+0'
 exp5='+-0+00-'
 
-inputsValues = [in1,in2,in3,in4,in5]
-expectedValues=[exp1,exp2,exp3,exp4,exp5]
+# there is an error in the 1 
+inputsValues = [in2,in3,in4,in5]
+expectedValues=[exp2,exp3,exp4,exp5]
 
 def encode(s):
     # find the length of the string 
@@ -67,9 +68,90 @@ def encode(s):
             print("Invalid value detected")
     # print(result)
     return result
-    
-def test(): 
-    for i in range(5): 
+
+
+
+
+def decode(s): 
+    # find the length of the string 
+    size=len(s)
+    # flags
+    inASequence=False 
+    toIgnore=0
+    # return value 
+    result=""
+    # decode 
+    for i in range (size): 
+        if (inASequence and toIgnore > 0): 
+            # if we are in a sequence 
+            # ignore this round
+            toIgnore-=1
+            continue 
+        else : 
+            if (s[i] =='0'):
+                # check if we are preceding a sequence 
+                # check if there are at least 8 numbers 
+                if (  (i+7) > size ): 
+                    result+="0"
+                else : 
+                    # check if the next 8 are a known sequence
+                    next8 = s[i:(i+8)]
+                    if (next8 == "000-+0+-"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True
+                    elif (next8 == "000+-0-+"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True 
+                    else :
+                        # just a regular bit
+                        result+="0"
+            elif (s[i] == '+'): 
+                # check if we are preceding a sequence 
+                # check if there are at least 8 numbers 
+                if (  (i+7) > size ): 
+                    result+="1"
+                else : 
+                    # check if the next 8 are a known sequence
+                    next8 = s[i:(i+8)]
+                    if (next8 == "000-+0+-"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True
+                    elif (next8 == "000+-0-+"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True 
+                    else :
+                        # just a regular bit
+                        result+="1"
+            elif (s[i] == '-'):
+                # check if we are preceding a sequence 
+                # check if there are at least 8 numbers 
+                if (  (i+7) > size ): 
+                    result+="1"
+                else : 
+                    # check if the next 8 are a known sequence
+                    next8 = s[i:(i+8)]
+                    if (next8 == "000-+0+-"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True
+                    elif (next8 == "000+-0-+"): 
+                        result+="00000000"
+                        toIgnore=7
+                        inASequence=True 
+                    else :
+                        # just a regular bit
+                        result+="1"
+            else : 
+                print("Invalid value detected")
+    return result
+
+
+def testEncoding(): 
+    for i in range(4): 
         print("======  ")
         print(i)
         if (  encode(inputsValues[i]) == expectedValues[i] ):
@@ -77,4 +159,16 @@ def test():
         else: 
             print("not ok")
 
-test()
+def testDecoding(): 
+    for i in range(4): 
+        print("======  ")
+        print(i)
+        if (  decode(expectedValues[i]) == inputsValues[i] ):
+            print ("ok")
+        else: 
+            print("not ok")
+
+# print(decode(expectedValues[1]))
+testEncoding()
+testDecoding()
+
